@@ -1,0 +1,309 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1500,
+  "model": {
+    "culture": "fr-FR",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/DESKTOP-UEN38BF;DWH",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "DESKTOP-UEN38BF",
+            "database": "DWH"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "SQL",
+          "path": "desktop-uen38bf;DWH",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "FAIS_VENTE",
+        "columns": [
+          {
+            "name": "DateID",
+            "dataType": "int64",
+            "sourceColumn": "DateID"
+          },
+          {
+            "name": "FK_Magazin",
+            "dataType": "int64",
+            "sourceColumn": "FK_Magazin"
+          },
+          {
+            "name": "FK_Livre",
+            "dataType": "int64",
+            "sourceColumn": "FK_Livre"
+          },
+          {
+            "name": "Num_Ticket",
+            "dataType": "string",
+            "sourceColumn": "Num_Ticket"
+          },
+          {
+            "name": "Code_Produit",
+            "dataType": "string",
+            "sourceColumn": "Code_Produit"
+          },
+          {
+            "name": "Code_magasin",
+            "dataType": "string",
+            "sourceColumn": "Code_magasin"
+          },
+          {
+            "name": "Date_Ticket",
+            "dataType": "dateTime",
+            "sourceColumn": "Date_Ticket"
+          },
+          {
+            "name": "Quantitee",
+            "dataType": "double",
+            "sourceColumn": "Quantitee"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price"
+          },
+          {
+            "type": "calculated",
+            "name": "CA",
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "expression": " FAIS_VENTE[Quantitee]* FAIS_VENTE[Price]"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-UEN38BF;DWH\",",
+                "    dbo_FAIS_VENTE = Source{[Schema=\"dbo\",Item=\"FAIS_VENTE\"]}[Data]",
+                "in",
+                "    dbo_FAIS_VENTE"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "TotalCA",
+            "expression": "SUm(FAIS_VENTE[CA])"
+          },
+          {
+            "name": "TotalQuantite",
+            "expression": " sum(FAIS_VENTE[Quantitee])"
+          }
+        ]
+      },
+      {
+        "name": "Dimention_Magazin",
+        "columns": [
+          {
+            "name": "PK_Magazin",
+            "dataType": "int64",
+            "sourceColumn": "PK_Magazin"
+          },
+          {
+            "name": "Magasin",
+            "dataType": "string",
+            "sourceColumn": "Magasin"
+          },
+          {
+            "name": "Departement",
+            "dataType": "int64",
+            "sourceColumn": "Departement"
+          },
+          {
+            "name": "Type_Rayonnage",
+            "dataType": "string",
+            "sourceColumn": "Type_Rayonnage"
+          },
+          {
+            "name": "Nom_Departement",
+            "dataType": "string",
+            "sourceColumn": "Nom_Departement"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-UEN38BF;DWH\",",
+                "    dbo_Dimention_Magazin = Source{[Schema=\"dbo\",Item=\"Dimention_Magazin\"]}[Data]",
+                "in",
+                "    dbo_Dimention_Magazin"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DIM_DATE",
+        "columns": [
+          {
+            "name": "DateID",
+            "dataType": "int64",
+            "sourceColumn": "DateID"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName"
+          },
+          {
+            "name": "MonthNumber",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumber"
+          },
+          {
+            "name": "DayNumber",
+            "dataType": "int64",
+            "sourceColumn": "DayNumber"
+          },
+          {
+            "name": "DayName",
+            "dataType": "string",
+            "sourceColumn": "DayName"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter"
+          },
+          {
+            "name": "QuarterName",
+            "dataType": "string",
+            "sourceColumn": "QuarterName"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-UEN38BF;DWH\",",
+                "    dbo_DIM_DATE = Source{[Schema=\"dbo\",Item=\"DIM_DATE\"]}[Data]",
+                "in",
+                "    dbo_DIM_DATE"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Catalogue",
+        "columns": [
+          {
+            "name": "PK_Livre",
+            "dataType": "int64",
+            "sourceColumn": "PK_Livre"
+          },
+          {
+            "name": "pubdate",
+            "dataType": "dateTime",
+            "sourceColumn": "pubdate"
+          },
+          {
+            "name": "ISBN_LIVRE",
+            "dataType": "string",
+            "sourceColumn": "ISBN_LIVRE"
+          },
+          {
+            "name": "Title",
+            "dataType": "string",
+            "sourceColumn": "Title"
+          },
+          {
+            "name": "Authors",
+            "dataType": "string",
+            "sourceColumn": "Authors"
+          },
+          {
+            "name": "Langue_livre",
+            "dataType": "string",
+            "sourceColumn": "Langue_livre"
+          },
+          {
+            "name": "Genre",
+            "dataType": "string",
+            "sourceColumn": "Genre"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-UEN38BF;DWH\",",
+                "    dbo_Catalogue = Source{[Schema=\"dbo\",Item=\"Catalogue\"]}[Data]",
+                "in",
+                "    dbo_Catalogue"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "01c800eb-0631-42a9-8abc-caf9c88686ce",
+        "fromTable": "FAIS_VENTE",
+        "fromColumn": "FK_Livre",
+        "toTable": "Catalogue",
+        "toColumn": "PK_Livre"
+      },
+      {
+        "name": "b8641a54-300d-4823-885b-1ecfa3efdcfd",
+        "fromTable": "FAIS_VENTE",
+        "fromColumn": "DateID",
+        "toTable": "DIM_DATE",
+        "toColumn": "DateID"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "600"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

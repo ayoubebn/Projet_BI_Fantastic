@@ -1,0 +1,18 @@
+*********************
+SELECT UPPER ( REPLACE (Departement, '"' , ' ' )) as Code_departement     
+      , UPPER ( REPLACE (DptName, '"' , ' ' )) as Nom_Departement
+      ,  UPPER ( REPLACE (Population, '"' , ' ' )) as PopulationInfo 
+  FROM [STG].[dbo].[Destination OLE DB]
+
+**************************************************
+
+
+  SELECT  [isbn]AS ISBN_LIVRE
+      ,UPPER([title]) AS Title
+      ,UPPER([authors]) AS Authors
+      ,UPPER(ISNULL (language, 'AUTRE') ) AS Langue_livre
+      ,[pubdate]
+      ,UPPER([genre]) AS Genre
+     FROM [STG].[dbo].[STG_catalogue]
+
+***************************************************

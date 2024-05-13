@@ -1,0 +1,7 @@
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\bin\Model.asdatabase
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\bin\Model.deploymenttargets
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\bin\Model.deploymentoptions
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\obj\Development\Tabular_Projet_Fantastic.smproj.CoreCompileInputs.cache
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\obj\Development\Model.asdatabase
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\obj\Development\Model.deploymentoptions
+C:\Users\AYOUB\Source\Repos\Tabular_Projet_Fantastic\obj\Development\Model.deploymenttargets
